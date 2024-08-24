@@ -1,0 +1,11 @@
+[package]
+name = "poorentropy"
+version = "0.1.0"
+edition = "2021"
+license = "BSD-2-Clause"
+authors = ["Andrea Corbellini <corbellini.andrea@gmail.com>"]
+
+[dependencies]
+
+[dev-dependencies]
+rand = { version = "0.8.5", default-features = false, features = ["small_rng"] }

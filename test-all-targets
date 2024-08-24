@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -euo pipefail
+
+targets=(
+  aarch64-unknown-linux-gnu
+  i686-unknown-linux-gnu
+  loongarch64-unknown-linux-gnu
+  riscv64gc-unknown-linux-gnu
+  x86_64-unknown-linux-gnu
+)
+
+for target in "${targets[@]}"; do
+  echo "$(tput bold)Target: $(tput setaf 1)$target$(tput sgr0)"
+  cross test --release --target="$target"
+  ( cd testgen && cross run --release --target="$target" -- -c 500000 | ent )
+done

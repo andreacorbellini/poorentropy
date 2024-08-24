@@ -1,0 +1,10 @@
+[package]
+name = "testgen"
+version = "0.1.0"
+edition = "2021"
+license = "BSD-2-Clause"
+authors = ["Andrea Corbellini <corbellini.andrea@gmail.com>"]
+
+[dependencies]
+clap = { version = "4.5.16", default-features = false, features = ["std"] }
+poorentropy = { path = ".." }
