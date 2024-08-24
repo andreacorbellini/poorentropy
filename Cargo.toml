@@ -5,6 +5,12 @@ edition = "2021"
 license = "BSD-2-Clause"
 authors = ["Andrea Corbellini <corbellini.andrea@gmail.com>"]
 
+description = "Low-quality entropy generator for `no_std` crates"
+repository = "https://github.com/andreacorbellini/poorentropy"
+
+keywords = ["entropy", "random", "no-std"]
+categories = ["algorithms", "no-std"]
+
 [dependencies]
 
 [dev-dependencies]
