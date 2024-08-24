@@ -5,7 +5,7 @@ standard library](https://doc.rust-lang.org/std/). The design goals for this cra
 simplicity and ease of use.
 
 The entropy generated is not suitable for security or cryptography (see
-[Limitations](#Limitations) and [How It Works](#How_It_Works) below for details), although it
+[Limitations](#limitations) and [How It Works](#how-it-works) below for details), although it
 may be combined with other entropy sources to produce a higher security level. This crate may
 be used for testing or for all sort of randomizations where security is not a constraint.
 

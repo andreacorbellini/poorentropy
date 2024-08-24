@@ -8,7 +8,7 @@
 //! simplicity and ease of use.
 //!
 //! The entropy generated is not suitable for security or cryptography (see
-//! [Limitations](#Limitations) and [How It Works](#How_It_Works) below for details), although it
+//! [Limitations](#limitations) and [How It Works](#how-it-works) below for details), although it
 //! may be combined with other entropy sources to produce a higher security level. This crate may
 //! be used for testing or for all sort of randomizations where security is not a constraint.
 //!
@@ -56,12 +56,12 @@
 //! This table describes how the CPU clock/counter value is obtained for each supported
 //! architecture:
 //!
-//! | Target       | Source       |
-//! |--------------|--------------|
-//! | AArch64      | `cntvct_el0` |
-//! | LoongArch64  | `rdtime.d`   |
-//! | RISC-V 64    | `rdcycle`    |
-//! | x86 / x86_64 | `rdtsc`      |
+//! | Target        | Source       |
+//! |---------------|--------------|
+//! | AArch64       | `cntvct_el0` |
+//! | LoongArch64   | `rdtime.d`   |
+//! | RISC-V 64     | `rdcycle`    |
+//! | x86 / x86\_64 | `rdtsc`      |
 //!
 //! The value obtained from the CPU is also added to an internal counter, with the goal to avoid
 //! returning the same entropy values to concurrent threads that call [`get()`] at the same time.
