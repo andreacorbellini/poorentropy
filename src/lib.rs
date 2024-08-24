@@ -88,7 +88,6 @@
 //!   low-quality entropy values being returned.
 
 #![no_std]
-
 #![warn(missing_debug_implementations)]
 #![warn(missing_docs)]
 #![warn(unreachable_pub)]
