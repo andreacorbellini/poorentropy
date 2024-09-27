@@ -9,10 +9,18 @@ use core::iter::FusedIterator;
 ///
 /// See the [documentation for `bytes()`](crate::bytes) for details and
 /// examples.
-#[derive(Default, Clone, Debug)]
+#[derive(Default, Debug)]
 pub struct Bytes {
     buf: [u8; 8],
     pos: usize,
+}
+
+impl Clone for Bytes {
+    #[inline]
+    fn clone(&self) -> Self {
+        // Cloning should result in a new random sequence
+        Self::default()
+    }
 }
 
 impl Iterator for Bytes {
