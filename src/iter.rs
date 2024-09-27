@@ -35,8 +35,14 @@ impl Iterator for Bytes {
         Some(self.buf[pos])
     }
 
+    #[inline]
     fn size_hint(&self) -> (usize, Option<usize>) {
         (usize::MAX, None)
+    }
+
+    #[inline]
+    fn nth(&mut self, _n: usize) -> Option<Self::Item> {
+        self.next()
     }
 }
 
