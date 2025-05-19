@@ -62,14 +62,15 @@ architecture:
 | RISC-V 64     | `rdcycle`    |
 | x86 / x86\_64 | `rdtsc`      |
 
-The value obtained from the CPU is also added to an internal counter, with the
-goal to avoid returning the same entropy values to concurrent threads that call
-[`get()`](https://docs.rs/poorentropy/latest/poorentropy/fn.get.html) at the
-same time.
+The value obtained from the CPU is also mixed with an internal counter, with
+the goal to avoid returning the same entropy values to concurrent threads that
+call [`get()`] at the same time.
 
-The resulting value is then fed into the
-[SplitMix64](https://en.wikipedia.org/wiki/Xorshift#Initialization) generator to make it appear
-random.
+The CPU clock/counter and the internal counter are then fed into the [fxhash]
+hash function to make the output appear random.
+
+[`get()`]: https://docs.rs/poorentropy/latest/poorentropy/fn.get.html
+[fxhash]: https://docs.rs/fxhash/latest/fxhash/
 
 # Limitations
 

@@ -63,12 +63,13 @@
 //! | RISC-V 64     | `rdcycle`    |
 //! | x86 / x86\_64 | `rdtsc`      |
 //!
-//! The value obtained from the CPU is also added to an internal counter, with the goal to avoid
+//! The value obtained from the CPU is also mixed with an internal counter, with the goal to avoid
 //! returning the same entropy values to concurrent threads that call [`get()`] at the same time.
 //!
-//! The resulting value is then fed into the
-//! [SplitMix64](https://en.wikipedia.org/wiki/Xorshift#Initialization) generator to make it appear
-//! random.
+//! The CPU clock/counter and the internal counter are then fed into the [fxhash] hash function to
+//! make the output appear random.
+//!
+//! [fxhash]: https://docs.rs/fxhash/latest/fxhash/
 //!
 //! # Limitations
 //!
@@ -98,6 +99,7 @@ pub mod iter;
 
 use core::arch::asm;
 use core::cmp::min;
+use core::ops::BitXor;
 use core::sync::atomic::AtomicU64;
 use core::sync::atomic::Ordering;
 
@@ -218,12 +220,21 @@ fn internal_counter() -> u64 {
 }
 
 #[inline]
-fn split_mix_64(state: u64) -> u64 {
-    let mut z = state.wrapping_add(0x9e3779b97f4a7c15);
-    z = (z ^ (z >> 30)).wrapping_mul(0xbf58476d1ce4e5b9);
-    z = (z ^ (z >> 27)).wrapping_mul(0x94d049bb133111eb);
-    z = z ^ (z >> 31);
-    z
+#[must_use]
+fn fxhash(state: u64, data: u64) -> u64 {
+    state
+        .rotate_left(5)
+        .bitxor(data)
+        .wrapping_mul(0x517cc1b727220a95)
+}
+
+#[inline]
+#[must_use]
+fn hash(a: u64, b: u64) -> u64 {
+    let mut hash = 0;
+    hash = fxhash(hash, a);
+    hash = fxhash(hash, b);
+    hash
 }
 
 /// Returns a pseudo-random value as a [`u64`].
@@ -252,9 +263,10 @@ pub fn get() -> u64 {
     // 2. work around the limitation on some architectures (ARM, AArch64) where the clock updates
     //    at a low frequency, therefore subsequent calls to `cpu_counter()` are *very likely* to
     //    return the same value.
-    let cnt = cpu_counter().wrapping_add(internal_counter());
+    let a = cpu_counter();
+    let b = internal_counter();
     // Use a pseudo-random number generator to make the output look random.
-    split_mix_64(cnt)
+    hash(a, b)
 }
 
 /// Fills a byte buffer with pseudo-random bytes.
