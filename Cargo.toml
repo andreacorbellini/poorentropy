@@ -14,4 +14,9 @@ categories = ["algorithms", "no-std"]
 [dependencies]
 
 [dev-dependencies]
+criterion = { version = "0.6.0" }
 rand = { version = "0.8.5", default-features = false, features = ["small_rng"] }
+
+[[bench]]
+name = "poorentropy_bench"
+harness = false
