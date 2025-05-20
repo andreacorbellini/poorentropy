@@ -1,3 +1,6 @@
+// Copyright © 2025 Andrea Corbellini and contributors
+// SPDX-License-Identifier: BSD-2-Clause
+
 use criterion::criterion_group;
 use criterion::criterion_main;
 use criterion::Criterion;

@@ -1,4 +1,4 @@
-// Copyright © 2024 Andrea Corbellini and contributors
+// Copyright © 2024-2025 Andrea Corbellini and contributors
 // SPDX-License-Identifier: BSD-2-Clause
 
 //! Low-quality entropy generator for `no_std` crates
