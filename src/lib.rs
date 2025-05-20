@@ -103,6 +103,11 @@ use core::ops::BitXor;
 use core::sync::atomic::AtomicU64;
 use core::sync::atomic::Ordering;
 
+#[cfg(feature = "rand_core")]
+mod rng;
+#[cfg(feature = "rand_core")]
+pub use crate::rng::Rng;
+
 #[inline(always)]
 #[cfg(target_arch = "aarch64")]
 fn cpu_counter() -> u64 {

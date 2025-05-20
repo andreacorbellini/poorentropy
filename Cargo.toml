@@ -12,10 +12,11 @@ keywords = ["entropy", "random", "no-std"]
 categories = ["algorithms", "no-std"]
 
 [dependencies]
+rand_core = { version = "0.9.3", optional = true }
 
 [dev-dependencies]
 criterion = { version = "0.6.0" }
-rand = { version = "0.8.5", default-features = false, features = ["small_rng"] }
+rand = { version = "0.9.1", default-features = false, features = ["small_rng"] }
 
 [[bench]]
 name = "poorentropy_bench"
