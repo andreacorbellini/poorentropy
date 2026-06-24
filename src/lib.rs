@@ -108,6 +108,15 @@ mod rng;
 #[cfg(feature = "rand_core")]
 pub use crate::rng::Rng;
 
+#[cfg(not(any(
+    target_arch = "aarch64",
+    target_arch = "loongarch64",
+    target_arch = "riscv64",
+    target_arch = "x86",
+    target_arch = "x86_64"
+)))]
+compile_error!("poorentropy: unsupported target architecture");
+
 #[inline(always)]
 #[cfg(target_arch = "aarch64")]
 fn cpu_counter() -> u64 {
