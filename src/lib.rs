@@ -35,7 +35,7 @@
 //! crate](https://crates.io/crates/rand):
 //!
 //! ```
-//! use rand::RngCore;
+//! use rand::Rng;
 //! use rand::SeedableRng;
 //! use rand::rngs::SmallRng;
 //!

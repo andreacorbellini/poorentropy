@@ -1,7 +1,7 @@
 // Copyright © 2025 Andrea Corbellini and contributors
 // SPDX-License-Identifier: BSD-2-Clause
 
-use rand_core::RngCore;
+use rand_core::TryRng;
 
 /// `poorentropy` implementation for use with the [`rand` crate]
 ///
@@ -12,7 +12,7 @@ use rand_core::RngCore;
 /// # Examples
 ///
 /// ```
-/// use rand::Rng;
+/// use rand::RngExt;
 ///
 /// let mut rng = poorentropy::Rng;
 /// let a: u32 = rng.random();
@@ -22,22 +22,26 @@ use rand_core::RngCore;
 #[derive(Default, Clone, Debug)]
 pub struct Rng;
 
-impl RngCore for Rng {
-    fn next_u32(&mut self) -> u32 {
-        crate::get() as u32
+impl TryRng for Rng {
+    type Error = core::convert::Infallible;
+
+    fn try_next_u32(&mut self) -> Result<u32, Self::Error> {
+        Ok(crate::get() as u32)
     }
-    fn next_u64(&mut self) -> u64 {
-        crate::get()
+
+    fn try_next_u64(&mut self) -> Result<u64, Self::Error> {
+        Ok(crate::get())
     }
-    fn fill_bytes(&mut self, dst: &mut [u8]) {
-        crate::fill(dst)
+
+    fn try_fill_bytes(&mut self, dst: &mut [u8]) -> Result<(), Self::Error> {
+        Ok(crate::fill(dst))
     }
 }
 
 #[cfg(test)]
 mod tests {
     use crate::Rng;
-    use rand_core::RngCore;
+    use rand_core::Rng as RngTrait;
 
     #[test]
     fn next_u32() {
