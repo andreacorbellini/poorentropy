@@ -66,10 +66,10 @@
 //! The value obtained from the CPU is also mixed with an internal counter, with the goal to avoid
 //! returning the same entropy values to concurrent threads that call [`get()`] at the same time.
 //!
-//! The CPU clock/counter and the internal counter are then fed into the [fxhash] hash function to
-//! make the output appear random.
+//! The CPU clock/counter and the internal counter are also fed into the [SplitMix64] hash function
+//! to make the output appear random.
 //!
-//! [fxhash]: https://docs.rs/fxhash/latest/fxhash/
+//! [SplitMix64]: https://en.wikipedia.org/wiki/Xorshift
 //!
 //! # Limitations
 //!
@@ -99,7 +99,6 @@ pub mod iter;
 
 use core::arch::asm;
 use core::cmp::min;
-use core::ops::BitXor;
 use core::sync::atomic::AtomicU64;
 use core::sync::atomic::Ordering;
 
@@ -235,20 +234,21 @@ fn internal_counter() -> u64 {
 
 #[inline]
 #[must_use]
-fn fxhash(state: u64, data: u64) -> u64 {
-    state
-        .rotate_left(5)
-        .bitxor(data)
-        .wrapping_mul(0x517cc1b727220a95)
+const fn split_mix_64(state: u64) -> u64 {
+    let mut z = state.wrapping_add(0x9e3779b97f4a7c15);
+    z = (z ^ (z >> 30)).wrapping_mul(0xbf58476d1ce4e5b9);
+    z = (z ^ (z >> 27)).wrapping_mul(0x94d049bb133111eb);
+    z = z ^ (z >> 31);
+    z
 }
 
 #[inline]
 #[must_use]
-fn hash(a: u64, b: u64) -> u64 {
+const fn hash(a: u64, b: u64) -> u64 {
     let mut hash = 0;
-    hash = fxhash(hash, a);
-    hash = fxhash(hash, b);
-    hash
+    hash = split_mix_64(hash) ^ a;
+    hash = split_mix_64(hash) ^ b;
+    split_mix_64(hash)
 }
 
 /// Returns a pseudo-random value as a [`u64`].

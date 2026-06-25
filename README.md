@@ -66,11 +66,11 @@ The value obtained from the CPU is also mixed with an internal counter, with
 the goal to avoid returning the same entropy values to concurrent threads that
 call [`get()`] at the same time.
 
-The CPU clock/counter and the internal counter are then fed into the [fxhash]
-hash function to make the output appear random.
+The CPU clock/counter and the internal counter are also fed into the
+[SplitMix64] hash function to make the output appear random.
 
 [`get()`]: https://docs.rs/poorentropy/latest/poorentropy/fn.get.html
-[fxhash]: https://docs.rs/fxhash/latest/fxhash/
+[SplitMix64]: https://en.wikipedia.org/wiki/Xorshift
 
 # Limitations
 
