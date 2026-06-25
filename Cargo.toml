@@ -15,7 +15,7 @@ categories = ["algorithms", "no-std"]
 rand_core = { version = "0.10.1", optional = true }
 
 [dev-dependencies]
-criterion = { version = "0.6.0" }
+criterion = { version = "0.8.2" }
 rand = { version = "0.10.1", default-features = false }
 
 [[bench]]
