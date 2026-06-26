@@ -104,6 +104,7 @@ use core::sync::atomic::Ordering;
 
 #[cfg(feature = "rand_core")]
 mod rng;
+
 #[cfg(feature = "rand_core")]
 pub use crate::rng::Rng;
 
@@ -116,6 +117,7 @@ pub use crate::rng::Rng;
 )))]
 compile_error!("poorentropy: unsupported target architecture");
 
+#[must_use]
 #[inline(always)]
 #[cfg(target_arch = "aarch64")]
 fn cpu_counter() -> u64 {
@@ -139,6 +141,7 @@ fn cpu_counter() -> u64 {
     cnt
 }
 
+#[must_use]
 #[inline(always)]
 #[cfg(target_arch = "loongarch64")]
 fn cpu_counter() -> u64 {
@@ -163,6 +166,7 @@ fn cpu_counter() -> u64 {
     cnt
 }
 
+#[must_use]
 #[inline(always)]
 #[cfg(target_arch = "riscv64")]
 fn cpu_counter() -> u64 {
@@ -182,6 +186,7 @@ fn cpu_counter() -> u64 {
     cnt
 }
 
+#[must_use]
 #[inline(always)]
 #[cfg(target_arch = "x86")]
 fn cpu_counter() -> u64 {
@@ -204,6 +209,7 @@ fn cpu_counter() -> u64 {
     ((cnt_hi as u64) << 32) | cnt_lo as u64
 }
 
+#[must_use]
 #[inline(always)]
 #[cfg(target_arch = "x86_64")]
 fn cpu_counter() -> u64 {
@@ -226,6 +232,7 @@ fn cpu_counter() -> u64 {
     (cnt_hi << 32) | cnt_lo
 }
 
+#[must_use]
 #[inline(always)]
 fn internal_counter() -> u64 {
     static COUNTER: AtomicU64 = AtomicU64::new(0);
