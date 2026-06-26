@@ -366,11 +366,7 @@ mod tests {
             assert!((0. ..=1.).contains(&x), "x out of range: {x}");
             assert!((0. ..=1.).contains(&y), "y out of range: {y}");
             let d = (x * x + y * y).sqrt();
-            if d <= 1. {
-                inside += 1
-            } else {
-                outside += 1
-            }
+            if d <= 1. { inside += 1 } else { outside += 1 }
         }
 
         let pi_approx = 4. * (inside as f64) / ((inside + outside) as f64);
