@@ -22,3 +22,6 @@ rand = { version = "0.10.1", default-features = false }
 [[bench]]
 name = "poorentropy_bench"
 harness = false
+
+[package.metadata.docs.rs]
+all-features = true
