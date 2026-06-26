@@ -13,6 +13,7 @@ targets=(
 for target in "${targets[@]}"; do
   echo "$(tput bold)Target: $(tput setaf 1)$target$(tput sgr0)"
   cross clippy --target="$target" --all-features
+  cross test --target="$target" --all-features
   cross test --release --target="$target" --all-features
   ( cd testgen && cross run --release --target="$target" -- -c 500000 | ent )
 done
