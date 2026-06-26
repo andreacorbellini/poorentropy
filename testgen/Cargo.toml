@@ -2,6 +2,7 @@
 name = "testgen"
 version = "0.2.0"
 edition = "2024"
+rust-version = "1.86.0"
 license = "BSD-2-Clause"
 authors = ["Andrea Corbellini <corbellini.andrea@gmail.com>"]
 
