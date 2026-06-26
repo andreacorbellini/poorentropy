@@ -1,4 +1,4 @@
-// Copyright © 2025 Andrea Corbellini and contributors
+// Copyright © 2025-2026 Andrea Corbellini and contributors
 // SPDX-License-Identifier: BSD-2-Clause
 
 use rand_core::TryRng;

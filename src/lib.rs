@@ -1,4 +1,4 @@
-// Copyright © 2024-2025 Andrea Corbellini and contributors
+// Copyright © 2024-2026 Andrea Corbellini and contributors
 // SPDX-License-Identifier: BSD-2-Clause
 
 //! Low-quality entropy generator for `no_std` crates
@@ -63,7 +63,7 @@
 //! | RISC-V 64     | `rdcycle`    |
 //! | x86 / x86\_64 | `rdtsc`      |
 //!
-//! The value obtained from the CPU is also mixed with an internal counter, with the goal to avoid
+//! The value obtained from the CPU is mixed with an internal counter, with the goal to avoid
 //! returning the same entropy values to concurrent threads that call [`get()`] at the same time.
 //!
 //! The CPU clock/counter and the internal counter are also fed into the [SplitMix64] hash function

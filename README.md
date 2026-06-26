@@ -35,7 +35,7 @@ seed for a pseudo-random number generator. Here is an example using the [`rand`
 crate](https://crates.io/crates/rand):
 
 ```rust
-use rand::RngCore;
+use rand::Rng;
 use rand::SeedableRng;
 use rand::rngs::SmallRng;
 
@@ -62,9 +62,9 @@ architecture:
 | RISC-V 64     | `rdcycle`    |
 | x86 / x86\_64 | `rdtsc`      |
 
-The value obtained from the CPU is also mixed with an internal counter, with
-the goal to avoid returning the same entropy values to concurrent threads that
-call [`get()`] at the same time.
+The value obtained from the CPU is mixed with an internal counter, with the
+goal to avoid returning the same entropy values to concurrent threads that call
+[`get()`] at the same time.
 
 The CPU clock/counter and the internal counter are also fed into the
 [SplitMix64] hash function to make the output appear random.
