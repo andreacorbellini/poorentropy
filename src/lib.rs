@@ -229,7 +229,7 @@ fn cpu_counter() -> u64 {
 #[inline(always)]
 fn internal_counter() -> u64 {
     static COUNTER: AtomicU64 = AtomicU64::new(0);
-    COUNTER.fetch_add(1, Ordering::SeqCst)
+    COUNTER.fetch_add(1, Ordering::Relaxed)
 }
 
 #[inline]
