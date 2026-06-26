@@ -1,4 +1,4 @@
-// Copyright © 2024 Andrea Corbellini and contributors
+// Copyright © 2024-2026 Andrea Corbellini and contributors
 // SPDX-License-Identifier: BSD-2-Clause
 
 //! Contains the iterator returned by [`bytes()`](crate::bytes).
@@ -28,7 +28,7 @@ impl Iterator for Bytes {
 
     fn next(&mut self) -> Option<Self::Item> {
         if self.pos == 0 {
-            self.buf = crate::get().to_le_bytes();
+            self.buf = crate::get().to_ne_bytes();
         }
         let pos = self.pos;
         self.pos = (pos + 1) & 7;
