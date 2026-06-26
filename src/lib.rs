@@ -308,7 +308,7 @@ pub fn get() -> u64 {
 ))]
 pub fn fill(mut buf: &mut [u8]) {
     while !buf.is_empty() {
-        let ent = get().to_le_bytes();
+        let ent = get().to_ne_bytes();
         let len = min(ent.len(), buf.len());
         let dst: &mut [u8];
         (dst, buf) = buf.split_at_mut(len);
