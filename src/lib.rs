@@ -190,8 +190,8 @@ fn cpu_counter() -> u64 {
 #[inline(always)]
 #[cfg(target_arch = "x86")]
 fn cpu_counter() -> u64 {
-    let mut cnt_hi: u32;
-    let mut cnt_lo: u32;
+    let cnt_hi: u32;
+    let cnt_lo: u32;
     // https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-2b-manual.pdf
     //
     // > Reads the current value of the processor’s time-stamp counter (a 64-bit MSR) into the
@@ -213,8 +213,8 @@ fn cpu_counter() -> u64 {
 #[inline(always)]
 #[cfg(target_arch = "x86_64")]
 fn cpu_counter() -> u64 {
-    let mut cnt_hi: u64;
-    let mut cnt_lo: u64;
+    let cnt_hi: u64;
+    let cnt_lo: u64;
     // https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-2b-manual.pdf
     //
     // > Reads the current value of the processor’s time-stamp counter (a 64-bit MSR) into the
