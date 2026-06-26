@@ -59,7 +59,7 @@ architecture:
 |---------------|--------------|
 | AArch64       | `cntvct_el0` |
 | LoongArch64   | `rdtime.d`   |
-| RISC-V 64     | `rdcycle`    |
+| RISC-V 64     | `rdtime`     |
 | x86 / x86\_64 | `rdtsc`      |
 
 The value obtained from the CPU is mixed with an internal counter, with the

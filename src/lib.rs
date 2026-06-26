@@ -60,7 +60,7 @@
 //! |---------------|--------------|
 //! | AArch64       | `cntvct_el0` |
 //! | LoongArch64   | `rdtime.d`   |
-//! | RISC-V 64     | `rdcycle`    |
+//! | RISC-V 64     | `rdtime`     |
 //! | x86 / x86\_64 | `rdtsc`      |
 //!
 //! The value obtained from the CPU is mixed with an internal counter, with the goal to avoid
@@ -171,14 +171,13 @@ fn cpu_counter() -> u64 {
 #[cfg(target_arch = "riscv64")]
 fn cpu_counter() -> u64 {
     let cnt: u64;
-    // https://riscv.org/wp-content/uploads/2016/06/riscv-spec-v2.1.pdf
+    // https://docs.riscv.org/reference/isa/_attachments/riscv-unprivileged.pdf
     //
-    // > The RDCYCLE pseudo-instruction reads the low XLEN bits of the cycle CSR which holds a
-    // > count of the number of clock cycles executed by the processor on which the hardware thread
-    // > is running from an arbitrary start time in the past.
+    // > The RDTIME pseudoinstruction reads the low XLEN bits of the "time" CSR, which counts
+    // > wall-clock real time that has passed from an arbitrary start time in the past.
     unsafe {
         asm!(
-            "rdcycle {cnt}",
+            "rdtime {cnt}",
             cnt = out(reg) cnt,
             options(nomem, nostack, preserves_flags),
         );
